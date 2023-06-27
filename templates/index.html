@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Todo App</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <h1 class="font-bold text-3xl">
+            Todos
+        </h1>
+        <ol start="1">
+            {% for todo in todos %}
+            <li>
+                <input type="checkbox" name="done" {% if todo['done'] %} checked {% endif %} onchange="this.form.submit()"> 
+                <span {% if todo['done'] %} style="text-decoration: line-through" {% endif %}>{{ todo['task'] }}</span>
+                <a href="{{ url_for('check', index=loop.index0) }}">Done</a>
+                <a href="{{ url_for('edit', index=loop.index0) }}">Edit</a>
+                <a href="{{ url_for('delete', index=loop.index0) }}">Delete</a>
+            </li>
+            {%endfor%}
+        </ol>
+        <form action="{{ url_for('add') }}" method="post">
+            <input type="text" name="todo">
+            <button type="submit">Add</button>
+        </form>
+        <script src="" async defer></script>
+    </body>
+</html>
